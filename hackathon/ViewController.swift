@@ -9,7 +9,7 @@
 import Cocoa
 
 class ViewController: NSViewController {
-
+    
     // Fixed Ion position
     var Ion_position_x0: Double = 100
     var Ion_position_y0: Double = 200
@@ -30,32 +30,32 @@ class ViewController: NSViewController {
     var t: Double = 1/30
     
     static let V0: Double = 10
-
+    
     static let Initial_alpha: Double = Double.pi / 4
-   
+    
     var V0x = V0 * cos(Initial_alpha)
     var V0y = V0 * sin(Initial_alpha)
     
     // start calculation ---------------------------------------------
     func startCalculation() {
         
-        var r0_Vector_x = Ion_position_x0 - x0
-        var r0_Vector_y = Ion_position_y0 - y0
-        var r0 = sqrt(r0_Vector_x * r0_Vector_x + r0_Vector_y * r0_Vector_y)
+        let r0_Vector_x = x0 - Ion_position_x0
+        let r0_Vector_y = y0 - Ion_position_y0
+        let r0 = sqrt(r0_Vector_x * r0_Vector_x + r0_Vector_y * r0_Vector_y)
         
-        var cosalpha_r_x_0 = r0_Vector_x / r0
-        var cosalpha_r_y_0 = r0_Vector_y / r0
+        let cosalpha_r_x_0 = r0_Vector_x / r0
+        let cosalpha_r_y_0 = r0_Vector_y / r0
         
-        var F0 = k * q1 * q2 / r0 * r0
-        var F0x = F0 * cosalpha_r_x_0
-        var F0y = F0 * cosalpha_r_y_0
+        let F0 = k * q1 * q2 / r0 * r0
+        let F0x = F0 * cosalpha_r_x_0
+        let F0y = F0 * cosalpha_r_y_0
         
-        var a0x = F0x / m
-        var a0y = F0y / m
+        let a0x = F0x / m
+        let a0y = F0y / m
         
         // first moVement
-        var x1 = x0 + V0x * t + 0.5 * a0x * t * t
-        var y1 = y0 + V0y * t + 0.5 * a0y * t * t
+        let x1 = x0 + V0x * t + 0.5 * a0x * t * t
+        let y1 = y0 + V0y * t + 0.5 * a0y * t * t
         
         x0 = x1
         y0 = y1
@@ -103,7 +103,7 @@ class ViewController: NSViewController {
                 aBall.x = CGFloat(zelf.x0)
                 aBall.y = CGFloat(zelf.y0)
             }
-
+            
             zelf.startCalculation()
         }
     }
