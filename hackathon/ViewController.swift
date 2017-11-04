@@ -13,10 +13,12 @@ class ViewController: NSViewController {
     @IBOutlet var backgroundView: NSView!
     
     private var balls: [BallView] = []
+    private weak var timer: Timer?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         backgroundView.layer?.backgroundColor = NSColor.white.cgColor
+        startTimer()
     }
     
     override func viewWillAppear() {
@@ -28,6 +30,22 @@ class ViewController: NSViewController {
             aBall.y = CGFloat(arc4random() % UInt32(view.frame.width))
             balls.append(aBall)
         }
+    }
+    
+    func startTimer() {
+        timer?.invalidate()   // just in case you had existing `Timer`, `invalidate` it before we lose our reference to it
+        timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { [weak self] _ in
+            // do something here
+            print("...")
+        }
+    }
+    
+    func stopTimer() {
+        timer?.invalidate()
+    }
+    
+    deinit {
+        stopTimer()
     }
 }
 

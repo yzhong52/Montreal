@@ -10,7 +10,7 @@ import Cocoa
 
 let ballSize: CGFloat = 10
 class BallView: NSView {
-    var x: CGFloat = 0{
+    var x: CGFloat = 0 {
         didSet {
             xPos?.constant = x
         }
