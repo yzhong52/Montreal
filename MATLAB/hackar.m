@@ -1,37 +1,27 @@
 % Vx Vy are the component of initial Velocities 
 Vx0 = 1;
 Vy0 = 1;
-
 %fixed Ion position
 Ion_position_x0 = 10;
 Ion_position_y0 = 10;
 %Initio electron position;
 e_position_x0 = 0;
 e_position_y0 = 0;
-
 %force F = k*q1*q2/r^2
 q1 = 1;
 q2 = 1;
 k =1;
 %electron mass
 m = 1;
-
 %constant delta t
 t = 1/30;
-
 x_axis = [1,0];
 y_axis = [0,1];
-
 % start calculation ---------------------------------------------
 V0 = 5;
 Initial_alpha = pi/4
 V0x = V0*cos(Initial_alpha )
 V0y = V0*sin(Initial_alpha)
-
-%Velocity_initial = [Vx0,Vy0];
-
-%cosalpha_V_x =  Velocity_initial*Vx'/norm(Velocity_initial)/norm(Vx)
-%cosalpha_V_y = Velocity_initial*Vy'/norm(Velocity_initial)/norm(Vy)
 
 r0_Vector = [Ion_position_x0,Ion_position_y0] - [e_position_x0,e_position_y0];
 r0 = norm(r0_Vector)
