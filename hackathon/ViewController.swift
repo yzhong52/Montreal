@@ -8,21 +8,81 @@
 
 import Cocoa
 
-let k: CGFloat = 1
+struct ViewControllerState {
+    weak var vc: ViewController?
+    var isPaused: Bool = false {
+        didSet {
+            if (isPaused) {
+                vc?.startPauseButton.title = "Start"
+                vc?.stopTimer()
+            } else {
+                vc?.startPauseButton.title = "Pause"
+                vc?.startTimer()
+            }
+            
+        }
+    }
+    
+    static var current = ViewControllerState()
+}
 
 class ViewController: NSViewController {
     
-    // constant delta t
-    var t: CGFloat = 1/30
-    
     @IBOutlet var backgroundView: NSView!
+    @IBOutlet var startPauseButton: NSButtonCell!
+    
     private var electronView: BallView?
+    
     private var ionViews: [BallView] = []
     
-    var tailsView: [BallView] = []
+    private var tailsView: [BallView] = []
+    
     private weak var timer: Timer?
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        backgroundView.layer?.backgroundColor = NSColor.white.cgColor
+        
+        ionViews = AppData.current.ions.map { (ion) in
+            let ball = BallView(view: view)
+            ball.setPos(pos: ion)
+            return ball
+        }
+        ViewControllerState.current.vc = self
+        ViewControllerState.current.isPaused = true
+    }
+    
+    override func viewWillAppear() {
+        super.viewWillAppear()
+        
+        electronView = BallView(view: view,
+                                color: CGColor(red: 0, green: 0, blue: 1, alpha: 1),
+                                size: 5)
+        electronView?.setPos(pos: AppData.current.electron)
+    }
+    
+    deinit {
+        stopTimer()
+    }
+    
+    func startTimer() {
+        // just in case you had existing `Timer`, `invalidate` it before we lose our reference to it
+        timer?.invalidate()
+        timer = Timer.scheduledTimer(withTimeInterval: 0.01, repeats: true) { [weak self] _ in
+            guard let zelf = self else { return }
+            
+            zelf.electronView?.setPos(pos: AppData.current.electron)
+            zelf.startCalculation()
+        }
+    }
+    
     func startCalculation() {
+        // constant k
+        let k: CGFloat = 1
+        
+        // constant delta t
+        let t: CGFloat = 1/30
+        
         var totalAx: CGFloat = 0
         var totalAy: CGFloat = 0
         
@@ -51,8 +111,8 @@ class ViewController: NSViewController {
         }
         
         // First movment
-        let x1 = AppData.current.electron.x + electron.vx * t + 0.5 * totalAx * t * t
-        let y1 = AppData.current.electron.y + electron.vy * t + 0.5 * totalAy * t * t
+        let x1 = electron.x + electron.vx * t + 0.5 * totalAx * t * t
+        let y1 = electron.y + electron.vy * t + 0.5 * totalAy * t * t
         
         AppData.current.electron.x = x1
         AppData.current.electron.y = y1
@@ -60,46 +120,13 @@ class ViewController: NSViewController {
         AppData.current.electron.vy = electron.vy + totalAy * t
     }
     
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        backgroundView.layer?.backgroundColor = NSColor.white.cgColor
-        startTimer()
-        
-        ionViews = AppData.current.ions.map { (ion) in
-            let ball = BallView(view: view)
-            ball.setPos(pos: ion)
-            return ball
-        }
-    }
-    
-    override func viewWillAppear() {
-        super.viewWillAppear()
-        
-        electronView = BallView(view: view,
-                                color: CGColor(red: 0, green: 0, blue: 1, alpha: 1),
-                                size: 5)
-    }
-    
-    func startTimer() {
-        // just in case you had existing `Timer`, `invalidate` it before we lose our reference to it
-        timer?.invalidate()
-        timer = Timer.scheduledTimer(withTimeInterval: 0.01, repeats: true) { [weak self] _ in
-            guard let zelf = self else {
-                return
-            }
-            
-            zelf.electronView?.setPos(pos: AppData.current.electron)
-            zelf.startCalculation()
-        }
-    }
-    
     func stopTimer() {
         timer?.invalidate()
+        timer = nil
     }
     
-    deinit {
-        stopTimer()
+    @IBAction func startPauseButtonTapped(_ sender: NSButtonCell) {
+        ViewControllerState.current.isPaused = !ViewControllerState.current.isPaused
     }
 }
 
