@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Electon: PositionType {
+struct Electon: PositionType, Codable {
     var vx: CGFloat
     var vy: CGFloat
     var x: CGFloat

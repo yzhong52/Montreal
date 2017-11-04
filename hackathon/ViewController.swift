@@ -10,33 +10,36 @@ import Cocoa
 
 let k: CGFloat = 1
 
+let V0: CGFloat = 10
+
+let Initial_alpha: CGFloat = CGFloat(Float.pi / 4)
+
+let ions = [
+    Ion(x: 200, y: 300, q: -1),
+    Ion(x: 100, y: 250, q: -1),
+    //        Ion(x: 100, y: 0, q: 1),
+    //        Ion(x: 0, y: 100, q: 1),
+    //        Ion(x: 50, y: 0, q: -1),
+    //        Ion(x: 0, y: 50, q: -1),
+    //        Ion(x: 50, y: 100, q: -1),
+    //        Ion(x: 50, y: 50, q: 1),
+    //        Ion(x: 0, y: 0, q: 1),
+]
+
+var electron = Electon(vx: V0 * cos(Initial_alpha),
+                       vy: V0 * sin(Initial_alpha),
+                       x: 25,
+                       y: 25,
+                       q: 1,
+                       m: 1)
+
+
 class ViewController: NSViewController {
     
-    let ions = [
-        Ion(x: 200, y: 300, q: -1),
-        Ion(x: 100, y: 250, q: -1),
-        //        Ion(x: 100, y: 0, q: 1),
-        //        Ion(x: 0, y: 100, q: 1),
-        //        Ion(x: 50, y: 0, q: -1),
-        //        Ion(x: 0, y: 50, q: -1),
-        //        Ion(x: 50, y: 100, q: -1),
-        //        Ion(x: 50, y: 50, q: 1),
-        //        Ion(x: 0, y: 0, q: 1),
-    ]
     
     // constant delta t
     var t: CGFloat = 1/30
     
-    static let V0: CGFloat = 10
-    
-    static let Initial_alpha: CGFloat = CGFloat(Float.pi / 4)
-    
-    var electron = Electon(vx: V0 * cos(Initial_alpha),
-                           vy: V0 * sin(Initial_alpha),
-                           x: 25,
-                           y: 25,
-                           q: 1,
-                           m: 1)
     
     @IBOutlet var backgroundView: NSView!
     var electronView: BallView?
@@ -106,8 +109,8 @@ class ViewController: NSViewController {
             }
             
             let aBall = zelf.electronView!
-            aBall.x = zelf.electron.x
-            aBall.y = zelf.electron.y
+            aBall.x = electron.x
+            aBall.y = electron.y
             
             zelf.startCalculation()
         }
