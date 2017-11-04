@@ -8,11 +8,31 @@
 
 import Cocoa
 
+struct Ion {
+    let x: CGFloat
+    let y: CGFloat
+    let q: CGFloat
+}
+
+struct Electon {
+    let x: CGFloat
+    let y: CGFloat
+    let q: CGFloat
+    let m: CGFloat
+}
+
 class ViewController: NSViewController {
     
     // Fixed Ion position
     var Ion_position_x0: Double = 100
     var Ion_position_y0: Double = 200
+    
+    let ions = [
+        Ion(x: 100, y: 200, q: -2),
+        Ion(x: 150, y: 300, q: -1)
+    ]
+    
+    let eleton = Electon.init(x: 50, y: 50, q: 1, m: 1)
     
     // Initio electron position;
     var x0: Double = 50
