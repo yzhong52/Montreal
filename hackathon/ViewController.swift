@@ -10,6 +10,7 @@ import Cocoa
 
 class ViewController: NSViewController {
 
+    @IBOutlet var backgroundView: NSView!
     @IBOutlet var leftBall: NSView!
     @IBOutlet var rightBall: NSView!
     @IBOutlet var springResortView: NSImageView!
@@ -18,19 +19,16 @@ class ViewController: NSViewController {
         super.viewDidLoad()
 
         [leftBall, rightBall].forEach { (aView) in
-            aView?.layer?.cornerRadius = leftBall.frame.width / 2
-            aView?.layer?.backgroundColor = CGColor(red: 0, green: 0, blue: 0, alpha: 1)
+            if let aView = aView {
+                aView.layer?.cornerRadius = aView.frame.width / 2
+                aView.layer?.backgroundColor = CGColor.black
+            }
         }
         
-        self.springResortView.rotate(byDegrees: 90)
-        self.view.layer?.backgroundColor = CGColor(red: 1, green: 1, blue: 1, alpha: 1)
+        springResortView.rotate(byDegrees: 90)
+        backgroundView.layer?.backgroundColor = NSColor.white.cgColor
     }
 
-    override var representedObject: Any? {
-        didSet {
-        // Update the view, if already loaded.
-        }
-    }
 
 
 }
