@@ -8,21 +8,32 @@
 
 import Cocoa
 
+protocol PositionType {
+    var x: CGFloat { get }
+    var y: CGFloat { get }
+}
+
 class BallView: NSView {
+    private var xPos: NSLayoutConstraint? = nil
+    private var yPos: NSLayoutConstraint? = nil
+    private var size: CGFloat = 10
+    
     var x: CGFloat = 0 {
         didSet {
             xPos?.constant = x
         }
     }
+    
     var y: CGFloat = 0 {
         didSet {
             yPos?.constant = y
         }
     }
     
-    private var xPos: NSLayoutConstraint? = nil
-    private var yPos: NSLayoutConstraint? = nil
-    private var size: CGFloat = 0
+    func setPos(pos: PositionType) {
+        x = pos.x
+        y = pos.y
+    }
     
     init(view: NSView, color: CGColor? = CGColor.black, size: CGFloat = 10) {
         super.init(frame: NSRect.zero)

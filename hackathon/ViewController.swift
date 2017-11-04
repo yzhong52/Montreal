@@ -8,36 +8,21 @@
 
 import Cocoa
 
-struct Ion {
-    let x: CGFloat
-    let y: CGFloat
-    let q: CGFloat
-}
-
-struct Electon {
-    var vx: CGFloat
-    var vy: CGFloat
-    var x: CGFloat
-    var y: CGFloat
-    let q: CGFloat
-    let m: CGFloat
-}
-
 let k: CGFloat = 1
 
 class ViewController: NSViewController {
     
     let ions = [
-        Ion(x: 100, y: 100, q: 1),
-        Ion(x: 100, y: 50, q: -1),
-        Ion(x: 100, y: 0, q: 1),
-        Ion(x: 0, y: 100, q: 1),
-        Ion(x: 50, y: 0, q: -1),
-        Ion(x: 0, y: 50, q: -1),
-        Ion(x: 50, y: 100, q: -1),
-        Ion(x: 50, y: 50, q: 1),
-        Ion(x: 0, y: 0, q: 1),
-        ]
+        Ion(x: 200, y: 300, q: -1),
+        Ion(x: 100, y: 250, q: -1),
+        //        Ion(x: 100, y: 0, q: 1),
+        //        Ion(x: 0, y: 100, q: 1),
+        //        Ion(x: 50, y: 0, q: -1),
+        //        Ion(x: 0, y: 50, q: -1),
+        //        Ion(x: 50, y: 100, q: -1),
+        //        Ion(x: 50, y: 50, q: 1),
+        //        Ion(x: 0, y: 0, q: 1),
+    ]
     
     // constant delta t
     var t: CGFloat = 1/30
@@ -58,7 +43,6 @@ class ViewController: NSViewController {
     var tailsView: [BallView] = []
     private weak var timer: Timer?
     
-    // start calculation ---------------------------------------------
     func startCalculation() {
         var totalAx: CGFloat = 0
         var totalAy: CGFloat = 0
@@ -82,7 +66,7 @@ class ViewController: NSViewController {
             totalAy = totalAy + a0y
         }
         
-        // first moVement
+        // First movment
         let x1 = electron.x + electron.vx * t + 0.5 * totalAx * t * t
         let y1 = electron.y + electron.vy * t + 0.5 * totalAy * t * t
         
@@ -99,9 +83,9 @@ class ViewController: NSViewController {
         startTimer()
         
         ions.forEach { (ion) in
-            let aBall = BallView(view: view)
-            aBall.x = ion.x
-            aBall.y = ion.y
+            let ball = BallView(view: view)
+            ball.x = ion.x
+            ball.y = ion.y
         }
     }
     
@@ -122,8 +106,8 @@ class ViewController: NSViewController {
             }
             
             let aBall = zelf.electronView!
-            aBall.x = CGFloat(zelf.electron.x)
-            aBall.y = CGFloat(zelf.electron.y)
+            aBall.x = zelf.electron.x
+            aBall.y = zelf.electron.y
             
             zelf.startCalculation()
         }

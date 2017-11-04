@@ -707,11 +707,11 @@
             <objects>
                 <viewController id="XfG-lQ-9wD" customClass="ViewController" customModule="hackathon" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" wantsLayer="YES" id="m2S-Jp-Qdl">
-                        <rect key="frame" x="0.0" y="0.0" width="480" height="234"/>
+                        <rect key="frame" x="0.0" y="0.0" width="500" height="500"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <customView translatesAutoresizingMaskIntoConstraints="NO" id="Hew-Cp-1FE">
-                                <rect key="frame" x="0.0" y="0.0" width="480" height="234"/>
+                                <rect key="frame" x="0.0" y="0.0" width="500" height="500"/>
                             </customView>
                         </subviews>
                         <constraints>
