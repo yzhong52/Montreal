@@ -8,7 +8,6 @@
 
 import Cocoa
 
-let ballSize: CGFloat = 10
 class BallView: NSView {
     var x: CGFloat = 0 {
         didSet {
@@ -23,8 +22,9 @@ class BallView: NSView {
     
     private var xPos: NSLayoutConstraint? = nil
     private var yPos: NSLayoutConstraint? = nil
+    private var size: CGFloat = 0
     
-    init(view: NSView) {
+    init(view: NSView, color: CGColor? = CGColor.black, size: CGFloat = 10) {
         super.init(frame: NSRect.zero)
         
         view.addSubview(self)
@@ -43,11 +43,11 @@ class BallView: NSView {
         yPos?.constant = 70
         yPos?.isActive = true
         
-        widthAnchor.constraint(equalToConstant: ballSize).isActive = true
-        heightAnchor.constraint(equalToConstant: ballSize).isActive = true
+        widthAnchor.constraint(equalToConstant: size).isActive = true
+        heightAnchor.constraint(equalToConstant: size).isActive = true
         
-        layer?.cornerRadius = ballSize / 2
-        layer?.backgroundColor = CGColor.black
+        layer?.cornerRadius = size / 2
+        layer?.backgroundColor = color ?? CGColor.black
     }
     
     required init?(coder decoder: NSCoder) {

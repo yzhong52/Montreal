@@ -15,11 +15,11 @@ class ViewController: NSViewController {
     var Ion_position_y0: Double = 200
     
     // Initio electron position;
-    var x0: Double = 0
-    var y0: Double = 0
+    var x0: Double = 50
+    var y0: Double = 50
     
-    // force F = k*q1*q2/r^2
-    var q1: Double = 1
+    // force F = k * q1 * q2 / r^2
+    var q1: Double = -1
     var q2: Double = 1
     var k: Double = 1
     
@@ -62,8 +62,8 @@ class ViewController: NSViewController {
         V0x = V0x + a0x * t
         V0y = V0y + a0y * t
         
-        print("x0, y0 = \(x0) \(y0)")
-        print("v0x, v0y = \(V0x) \(V0y)")
+        //        print("x0, y0 = \(x0) \(y0)")
+        //        print("v0x, v0y = \(V0x) \(V0y)")
     }
     
     @IBOutlet var backgroundView: NSView!
@@ -84,8 +84,10 @@ class ViewController: NSViewController {
     override func viewWillAppear() {
         super.viewWillAppear()
         
-        for _ in 1...1 {
-            let aBall = BallView(view: view)
+        for _ in 1...2 {
+            let aBall = BallView(view: view,
+                                 color: CGColor(red: 0, green: 0, blue: 1, alpha: 1),
+                                 size: 5)
             balls.append(aBall)
         }
     }
@@ -96,13 +98,10 @@ class ViewController: NSViewController {
             guard let zelf = self else {
                 return
             }
-            // do something here
-            print("...")
             
-            for aBall in zelf.balls {
-                aBall.x = CGFloat(zelf.x0)
-                aBall.y = CGFloat(zelf.y0)
-            }
+            let aBall = zelf.balls.first!
+            aBall.x = CGFloat(zelf.x0)
+            aBall.y = CGFloat(zelf.y0)
             
             zelf.startCalculation()
         }
