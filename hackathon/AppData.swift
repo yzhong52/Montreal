@@ -8,12 +8,16 @@
 
 import Foundation
 
+private let V0: CGFloat = 10
+
+private let Initial_alpha: CGFloat = CGFloat(Float.pi / 4)
+
 class AppData: Codable {
     var ions = [
         Ion(x: 200, y: 300, q: -1),
         Ion(x: 100, y: 250, q: -1)
     ]
-    
+
     var electron = Electon(vx: V0 * cos(Initial_alpha),
                            vy: V0 * sin(Initial_alpha),
                            x: 25,
@@ -21,5 +25,11 @@ class AppData: Codable {
                            q: 1,
                            m: 1)
     
-    static let current = AppData.init()
+    static var settings = AppData() {
+        didSet {
+            current = settings
+        }
+    }
+    
+    static var current = settings
 }

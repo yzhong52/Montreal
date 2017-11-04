@@ -11,14 +11,6 @@ import Cocoa
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
     
-    func applicationDidFinishLaunching(_ aNotification: Notification) {
-        // Insert code here to initialize your application
-    }
-    
-    func applicationWillTerminate(_ aNotification: Notification) {
-        // Insert code here to tear down your application
-    }
-    
     @IBAction func saveButtonTapped(_ sender: Any)
     {
         let saveDialog = NSSavePanel()
@@ -29,8 +21,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                 
                 let encoder = JSONEncoder()
                 encoder.outputFormatting = .prettyPrinted
-                let data = try! encoder.encode(AppData.current)
-
+                let data = try! encoder.encode(AppData.settings)
+                
                 let success = FileManager.default.createFile(atPath: url.path,
                                                              contents: data,
                                                              attributes: nil)
@@ -44,20 +36,21 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     {
         let dialog = NSOpenPanel()
         
-        dialog.title                   = "Choose a .txt file"
+        dialog.title                   = "Choose a .json file"
         dialog.showsResizeIndicator    = true
         dialog.showsHiddenFiles        = false
-        dialog.canChooseDirectories    = true
-        dialog.canCreateDirectories    = true
+        dialog.canChooseDirectories    = false
+        dialog.canCreateDirectories    = false
         dialog.allowsMultipleSelection = false
-        dialog.allowedFileTypes        = ["txt"]
+        dialog.allowedFileTypes        = ["json"]
         
         if (dialog.runModal() == NSApplication.ModalResponse.OK) {
-            // Pathname of the file
-            let result = dialog.url
-            if (result != nil) {
-                //                let path = result!.path
-                //                filename_field.stringValue = path
+            if let url = dialog.url,
+                let data = try? Data.init(contentsOf: url) {
+                let decoder = JSONDecoder()
+                if let appData = try? decoder.decode(AppData.self, from: data) {
+                    AppData.settings = appData
+                }
             }
         } else {
             // User clicked on "Cancel"
