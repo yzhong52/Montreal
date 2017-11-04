@@ -33,17 +33,16 @@ class ViewController: NSViewController {
     
     let ions = [
         Ion(x: 100, y: 100, q: 1),
-        Ion(x: 100, y: 50, q: -1),
-        Ion(x: 100, y: 0, q: 1),
-        Ion(x: 0, y: 100, q: 1),
-        Ion(x: 50, y: 0, q: -1),
-        Ion(x: 0, y: 50, q: -1),
-        Ion(x: 50, y: 100, q: -1),
-        Ion(x: 50, y: 50, q: 1),
-        Ion(x: 0, y: 0, q: 1),
+//       Ion(x: 100, y: 50, q: -1),
+//        Ion(x: 100, y: 0, q: 1),
+//        Ion(x: 0, y: 100, q: 1),
+//        Ion(x: 50, y: 0, q: -1),
+//        Ion(x: 0, y: 50, q: -1),
+//        Ion(x: 50, y: 100, q: -1),
+//        Ion(x: 50, y: 50, q: 1),
+//        Ion(x: 0, y: 0, q: 1),
     ]
     
-    var eleton = Electon(vx: 10, vy: 10, x: 25, y: 25, q: 1, m: 1)
     
     // constant delta t
     var t: CGFloat = 1/30
@@ -52,8 +51,15 @@ class ViewController: NSViewController {
     
     static let Initial_alpha: CGFloat = CGFloat(Float.pi / 4)
     
-    var V0x = V0 * cos(Initial_alpha)
-    var V0y = V0 * sin(Initial_alpha)
+//    var V0x = V0 * cos(Initial_alpha)
+//    var V0y = V0 * sin(Initial_alpha)
+    var eleton = Electon(vx: V0 * cos(Initial_alpha),
+                         vy: V0 * sin(Initial_alpha),
+                         x: 25,
+                         y: 25,
+                         q: 1,
+                         m: 1)
+    
     @IBOutlet var backgroundView: NSView!
     var electronView: BallView?
     var tailsView: [BallView] = []
@@ -84,8 +90,8 @@ class ViewController: NSViewController {
         }
         
         // first moVement
-        let x1 = eleton.x + V0x * t + 0.5 * totalAx * t * t
-        let y1 = eleton.y + V0y * t + 0.5 * totalAy * t * t
+        let x1 = eleton.x + eleton.vx * t + 0.5 * totalAx * t * t
+        let y1 = eleton.y + eleton.vy * t + 0.5 * totalAy * t * t
         
         eleton.x = x1
         eleton.y = y1
