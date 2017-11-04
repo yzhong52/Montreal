@@ -26,8 +26,6 @@ class ViewController: NSViewController {
         
         for _ in 1...10 {
             let aBall = BallView(view: view)
-            aBall.x = CGFloat(arc4random() % UInt32(view.frame.height))
-            aBall.y = CGFloat(arc4random() % UInt32(view.frame.width))
             balls.append(aBall)
         }
     }
@@ -35,8 +33,16 @@ class ViewController: NSViewController {
     func startTimer() {
         timer?.invalidate()   // just in case you had existing `Timer`, `invalidate` it before we lose our reference to it
         timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { [weak self] _ in
+            guard let zelf = self else {
+                return
+            }
             // do something here
             print("...")
+            
+            for aBall in zelf.balls {
+                aBall.x = CGFloat(arc4random() % UInt32(zelf.view.frame.height))
+                aBall.y = CGFloat(arc4random() % UInt32(zelf.view.frame.width))
+            }
         }
     }
     
