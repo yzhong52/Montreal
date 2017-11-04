@@ -27,22 +27,17 @@ let k: CGFloat = 1
 
 class ViewController: NSViewController {
     
-    // Fixed Ion position
-    var Ion_position_x0: Double = 100
-    var Ion_position_y0: Double = 200
-    
     let ions = [
         Ion(x: 100, y: 100, q: 1),
-//       Ion(x: 100, y: 50, q: -1),
-//        Ion(x: 100, y: 0, q: 1),
-//        Ion(x: 0, y: 100, q: 1),
-//        Ion(x: 50, y: 0, q: -1),
-//        Ion(x: 0, y: 50, q: -1),
-//        Ion(x: 50, y: 100, q: -1),
-//        Ion(x: 50, y: 50, q: 1),
-//        Ion(x: 0, y: 0, q: 1),
-    ]
-    
+        Ion(x: 100, y: 50, q: -1),
+        Ion(x: 100, y: 0, q: 1),
+        Ion(x: 0, y: 100, q: 1),
+        Ion(x: 50, y: 0, q: -1),
+        Ion(x: 0, y: 50, q: -1),
+        Ion(x: 50, y: 100, q: -1),
+        Ion(x: 50, y: 50, q: 1),
+        Ion(x: 0, y: 0, q: 1),
+        ]
     
     // constant delta t
     var t: CGFloat = 1/30
@@ -51,14 +46,12 @@ class ViewController: NSViewController {
     
     static let Initial_alpha: CGFloat = CGFloat(Float.pi / 4)
     
-//    var V0x = V0 * cos(Initial_alpha)
-//    var V0y = V0 * sin(Initial_alpha)
     var electron = Electon(vx: V0 * cos(Initial_alpha),
-                         vy: V0 * sin(Initial_alpha),
-                         x: 25,
-                         y: 25,
-                         q: 1,
-                         m: 1)
+                           vy: V0 * sin(Initial_alpha),
+                           x: 25,
+                           y: 25,
+                           q: 1,
+                           m: 1)
     
     @IBOutlet var backgroundView: NSView!
     var electronView: BallView?
@@ -107,12 +100,10 @@ class ViewController: NSViewController {
         
         ions.forEach { (ion) in
             let aBall = BallView(view: view)
-            aBall.x = CGFloat(ion.x)
-            aBall.y = CGFloat(ion.y)
+            aBall.x = ion.x
+            aBall.y = ion.y
         }
-        
     }
-    
     
     override func viewWillAppear() {
         super.viewWillAppear()
