@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Ion: PositionType {
+struct Ion: PositionType, Codable {
     let x: CGFloat
     let y: CGFloat
     let q: CGFloat

@@ -22,12 +22,17 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     @IBAction func saveButtonTapped(_ sender: Any)
     {
         let saveDialog = NSSavePanel()
+        saveDialog.nameFieldStringValue = "hackathon.json"
         saveDialog.begin() { (result) -> Void in
             if result.rawValue == NSFileHandlingPanelOKButton,
                 let url = saveDialog.url {
-                let stringData = "electron."
+                
+                let encoder = JSONEncoder()
+                encoder.outputFormatting = .prettyPrinted
+                let data = try! encoder.encode(AppData.current)
+
                 let success = FileManager.default.createFile(atPath: url.path,
-                                                             contents: stringData.data(using: String.Encoding.utf8),
+                                                             contents: data,
                                                              attributes: nil)
                 
                 print("Create file at \(url): \(success)")

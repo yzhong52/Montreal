@@ -34,6 +34,7 @@ var electron = Electon(vx: V0 * cos(Initial_alpha),
                        m: 1)
 
 
+
 class ViewController: NSViewController {
     
     
