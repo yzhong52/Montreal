@@ -53,7 +53,7 @@ class ViewController: NSViewController {
     
 //    var V0x = V0 * cos(Initial_alpha)
 //    var V0y = V0 * sin(Initial_alpha)
-    var eleton = Electon(vx: V0 * cos(Initial_alpha),
+    var electron = Electon(vx: V0 * cos(Initial_alpha),
                          vy: V0 * sin(Initial_alpha),
                          x: 25,
                          y: 25,
@@ -70,33 +70,33 @@ class ViewController: NSViewController {
         var totalAx: CGFloat = 0
         var totalAy: CGFloat = 0
         ions.forEach { (ion) in
-            let r0_Vector_x = eleton.x - ion.x
-            let r0_Vector_y = eleton.y - ion.y
+            let r0_Vector_x = electron.x - ion.x
+            let r0_Vector_y = electron.y - ion.y
             let r0 = sqrt(r0_Vector_x * r0_Vector_x + r0_Vector_y * r0_Vector_y)
             
             let cosalpha_r_x_0 = r0_Vector_x / r0
             let cosalpha_r_y_0 = r0_Vector_y / r0
             
-            let F0 = k * eleton.q * ion.q / r0 * r0
+            let F0 = k * electron.q * ion.q / r0 * r0
             
             let F0x = F0 * cosalpha_r_x_0
             let F0y = F0 * cosalpha_r_y_0
             
-            let a0x = F0x / eleton.m
-            let a0y = F0y / eleton.m
+            let a0x = F0x / electron.m
+            let a0y = F0y / electron.m
             
             totalAx = totalAx + a0x
             totalAy = totalAy + a0y
         }
         
         // first moVement
-        let x1 = eleton.x + eleton.vx * t + 0.5 * totalAx * t * t
-        let y1 = eleton.y + eleton.vy * t + 0.5 * totalAy * t * t
+        let x1 = electron.x + electron.vx * t + 0.5 * totalAx * t * t
+        let y1 = electron.y + electron.vy * t + 0.5 * totalAy * t * t
         
-        eleton.x = x1
-        eleton.y = y1
-        eleton.vx = eleton.vx + totalAx * t
-        eleton.vy = eleton.vy + totalAy * t
+        electron.x = x1
+        electron.y = y1
+        electron.vx = electron.vx + totalAx * t
+        electron.vy = electron.vy + totalAy * t
     }
     
     
@@ -131,8 +131,8 @@ class ViewController: NSViewController {
             }
             
             let aBall = zelf.electronView!
-            aBall.x = CGFloat(zelf.eleton.x)
-            aBall.y = CGFloat(zelf.eleton.y)
+            aBall.x = CGFloat(zelf.electron.x)
+            aBall.y = CGFloat(zelf.electron.y)
             
             zelf.startCalculation()
         }
