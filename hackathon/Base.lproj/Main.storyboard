@@ -713,6 +713,17 @@
                             <customView translatesAutoresizingMaskIntoConstraints="NO" id="Hew-Cp-1FE">
                                 <rect key="frame" x="0.0" y="0.0" width="500" height="500"/>
                                 <subviews>
+                                    <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="z92-BJ-a9X">
+                                        <rect key="frame" x="0.0" y="0.0" width="500" height="500"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <gestureRecognizers>
+                                            <clickGestureRecognizer delaysPrimaryMouseButtonEvents="YES" numberOfClicksRequired="1" id="a5e-ah-ntC">
+                                                <connections>
+                                                    <action selector="viewTapped:" target="XfG-lQ-9wD" id="CYZ-CR-rLr"/>
+                                                </connections>
+                                            </clickGestureRecognizer>
+                                        </gestureRecognizers>
+                                    </customView>
                                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="0ah-vg-bRr">
                                         <rect key="frame" x="215" y="452" width="70" height="32"/>
                                         <buttonCell key="cell" type="push" title="Start" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="v32-3X-txs">
@@ -753,6 +764,7 @@
                     <connections>
                         <outlet property="backgroundView" destination="Hew-Cp-1FE" id="vXY-es-WNo"/>
                         <outlet property="startPauseButton" destination="v32-3X-txs" id="n08-lc-0eC"/>
+                        <outlet property="viewTappedGestureRecognizer" destination="a5e-ah-ntC" id="cuJ-VU-dXm"/>
                     </connections>
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>

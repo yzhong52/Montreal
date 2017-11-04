@@ -141,5 +141,17 @@ class ViewController: NSViewController {
         tailsView.forEach { $0.removeFromSuperview() }
         tailsView = []
     }
+    
+    @IBOutlet var viewTappedGestureRecognizer: NSClickGestureRecognizer!
+    @IBAction func viewTapped(_ sender: NSClickGestureRecognizer) {
+        switch sender.state {
+        case .ended:
+            let pos = sender.location(in: view)
+            print(pos.x)
+            print(pos.y)
+        default:
+            print("do nothing for state \(sender.state.rawValue)")
+        }
+    }
 }
 
