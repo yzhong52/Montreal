@@ -10,8 +10,16 @@ import Cocoa
 
 let ballSize: CGFloat = 10
 class BallView: NSView {
-    var x: CGFloat = 0
-    var y: CGFloat = 0
+    var x: CGFloat = 0{
+        didSet {
+            xPos?.constant = x
+        }
+    }
+    var y: CGFloat = 0 {
+        didSet {
+            yPos?.constant = y
+        }
+    }
     
     private var xPos: NSLayoutConstraint? = nil
     private var yPos: NSLayoutConstraint? = nil
@@ -31,17 +39,15 @@ class BallView: NSView {
         
         translatesAutoresizingMaskIntoConstraints = false
         
-        let aView = self
-        
-        yPos = aView.leftAnchor.constraint(equalTo: view.leftAnchor)
+        yPos = leftAnchor.constraint(equalTo: view.leftAnchor)
         yPos?.constant = 70
         yPos?.isActive = true
         
-        aView.widthAnchor.constraint(equalToConstant: ballSize).isActive = true
-        aView.heightAnchor.constraint(equalToConstant: ballSize).isActive = true
+        widthAnchor.constraint(equalToConstant: ballSize).isActive = true
+        heightAnchor.constraint(equalToConstant: ballSize).isActive = true
         
-        aView.layer?.cornerRadius = ballSize / 2
-        aView.layer?.backgroundColor = CGColor.black
+        layer?.cornerRadius = ballSize / 2
+        layer?.backgroundColor = CGColor.black
     }
     
     required init?(coder decoder: NSCoder) {

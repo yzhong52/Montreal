@@ -12,20 +12,22 @@ class ViewController: NSViewController {
     
     @IBOutlet var backgroundView: NSView!
     
-    private var ball: BallView?
+    private var balls: [BallView] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         backgroundView.layer?.backgroundColor = NSColor.white.cgColor
     }
     
-    
-    private let ballSize: CGFloat = 55
     override func viewWillAppear() {
         super.viewWillAppear()
         
-        ball = BallView(view: view)
+        for _ in 1...10 {
+            let aBall = BallView(view: view)
+            aBall.x = CGFloat(arc4random() % UInt32(view.frame.height))
+            aBall.y = CGFloat(arc4random() % UInt32(view.frame.width))
+            balls.append(aBall)
+        }
     }
 }
 
