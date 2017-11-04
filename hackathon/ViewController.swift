@@ -15,8 +15,10 @@ struct Ion {
 }
 
 struct Electon {
-    let x: CGFloat
-    let y: CGFloat
+    var vx: CGFloat
+    var vy: CGFloat
+    var x: CGFloat
+    var y: CGFloat
     let q: CGFloat
     let m: CGFloat
 }
@@ -30,23 +32,18 @@ class ViewController: NSViewController {
     var Ion_position_y0: Double = 200
     
     let ions = [
-        Ion(x: 100, y: 200, q: -2),
-        Ion(x: 150, y: 300, q: -1)
+        Ion(x: 100, y: 100, q: 1),
+        Ion(x: 100, y: 50, q: -1),
+        Ion(x: 100, y: 0, q: 1),
+        Ion(x: 0, y: 100, q: 1),
+        Ion(x: 50, y: 0, q: -1),
+        Ion(x: 0, y: 50, q: -1),
+        Ion(x: 50, y: 100, q: -1),
+        Ion(x: 50, y: 50, q: 1),
+        Ion(x: 0, y: 0, q: 1),
     ]
     
-    let eleton = Electon(x: 50, y: 50, q: 1, m: 1)
-    
-    // Initio electron position;
-    var x0: CGFloat = 50
-    var y0: CGFloat = 50
-    
-    // force F = k * q1 * q2 / r^2
-    var q1: Double = -1
-    var q2: Double = 1
-    
-    
-    // electron mass
-    var m: Double = 1
+    var eleton = Electon(vx: 10, vy: 10, x: 25, y: 25, q: 1, m: 1)
     
     // constant delta t
     var t: CGFloat = 1/30
@@ -59,6 +56,7 @@ class ViewController: NSViewController {
     var V0y = V0 * sin(Initial_alpha)
     @IBOutlet var backgroundView: NSView!
     var electronView: BallView?
+    var tailsView: [BallView] = []
     private weak var timer: Timer?
     
     // start calculation ---------------------------------------------
@@ -66,8 +64,8 @@ class ViewController: NSViewController {
         var totalAx: CGFloat = 0
         var totalAy: CGFloat = 0
         ions.forEach { (ion) in
-            let r0_Vector_x = x0 - ion.x
-            let r0_Vector_y = y0 - ion.y
+            let r0_Vector_x = eleton.x - ion.x
+            let r0_Vector_y = eleton.y - ion.y
             let r0 = sqrt(r0_Vector_x * r0_Vector_x + r0_Vector_y * r0_Vector_y)
             
             let cosalpha_r_x_0 = r0_Vector_x / r0
@@ -86,13 +84,13 @@ class ViewController: NSViewController {
         }
         
         // first moVement
-        let x1 = x0 + V0x * t + 0.5 * totalAx * t * t
-        let y1 = y0 + V0y * t + 0.5 * totalAy * t * t
+        let x1 = eleton.x + V0x * t + 0.5 * totalAx * t * t
+        let y1 = eleton.y + V0y * t + 0.5 * totalAy * t * t
         
-        x0 = x1
-        y0 = y1
-        V0x = V0x + totalAx * t
-        V0y = V0y + totalAy * t
+        eleton.x = x1
+        eleton.y = y1
+        eleton.vx = eleton.vx + totalAx * t
+        eleton.vy = eleton.vy + totalAy * t
     }
     
     
@@ -119,15 +117,16 @@ class ViewController: NSViewController {
     }
     
     func startTimer() {
-        timer?.invalidate()   // just in case you had existing `Timer`, `invalidate` it before we lose our reference to it
+        // just in case you had existing `Timer`, `invalidate` it before we lose our reference to it
+        timer?.invalidate()
         timer = Timer.scheduledTimer(withTimeInterval: 0.01, repeats: true) { [weak self] _ in
             guard let zelf = self else {
                 return
             }
             
             let aBall = zelf.electronView!
-            aBall.x = CGFloat(zelf.x0)
-            aBall.y = CGFloat(zelf.y0)
+            aBall.x = CGFloat(zelf.eleton.x)
+            aBall.y = CGFloat(zelf.eleton.y)
             
             zelf.startCalculation()
         }
