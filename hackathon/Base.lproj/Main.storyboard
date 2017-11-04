@@ -723,9 +723,22 @@
                                             <action selector="startPauseButtonTapped:" target="XfG-lQ-9wD" id="kjI-JJ-FYq"/>
                                         </connections>
                                     </button>
+                                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Vjn-jP-PFt">
+                                        <rect key="frame" x="283" y="452" width="75" height="32"/>
+                                        <buttonCell key="cell" type="push" title="Reset" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="8in-2b-LIf">
+                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                            <font key="font" metaFont="system"/>
+                                        </buttonCell>
+                                        <connections>
+                                            <action selector="resetButtonCTapped:" target="XfG-lQ-9wD" id="lkU-9B-nei"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <constraints>
+                                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Vjn-jP-PFt" secondAttribute="trailing" constant="20" id="Mp1-ZV-hoV"/>
+                                    <constraint firstItem="Vjn-jP-PFt" firstAttribute="leading" secondItem="0ah-vg-bRr" secondAttribute="trailing" constant="10" id="tI4-az-uz5"/>
                                     <constraint firstItem="0ah-vg-bRr" firstAttribute="top" secondItem="Hew-Cp-1FE" secondAttribute="top" constant="20" id="uL9-sT-ReM"/>
+                                    <constraint firstItem="Vjn-jP-PFt" firstAttribute="centerY" secondItem="0ah-vg-bRr" secondAttribute="centerY" id="yMt-Vk-f5E"/>
                                 </constraints>
                             </customView>
                         </subviews>

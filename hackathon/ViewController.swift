@@ -19,7 +19,6 @@ struct ViewControllerState {
                 vc?.startPauseButton.title = "Pause"
                 vc?.startTimer()
             }
-            
         }
     }
     
@@ -127,6 +126,10 @@ class ViewController: NSViewController {
     
     @IBAction func startPauseButtonTapped(_ sender: NSButtonCell) {
         ViewControllerState.current.isPaused = !ViewControllerState.current.isPaused
+    }
+    
+    @IBAction func resetButtonCTapped(_ sender: NSButtonCell) {
+         AppData.current = AppData.settings
     }
 }
 
