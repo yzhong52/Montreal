@@ -72,6 +72,14 @@ class ViewController: NSViewController {
             
             zelf.electronView?.setPos(pos: AppData.current.electron)
             zelf.startCalculation()
+            zelf.tailsView.append(BallView(view: zelf.view,
+                                           color: CGColor(red: 1, green: 0, blue: 0, alpha: 0.1),
+                                           size: 3))
+            zelf.tailsView.last?.setPos(pos: AppData.current.electron)
+            if zelf.tailsView.count > 50 {
+                zelf.tailsView.first?.removeFromSuperview()
+                zelf.tailsView.remove(at: 0)
+            }
         }
     }
     
@@ -129,7 +137,9 @@ class ViewController: NSViewController {
     }
     
     @IBAction func resetButtonCTapped(_ sender: NSButtonCell) {
-         AppData.current = AppData.settings
+        AppData.current = AppData.settings
+        tailsView.forEach { $0.removeFromSuperview() }
+        tailsView = []
     }
 }
 
