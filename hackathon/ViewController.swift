@@ -11,43 +11,45 @@ import Cocoa
 class ViewController: NSViewController {
     
     @IBOutlet var backgroundView: NSView!
-    @IBOutlet var leftBall: NSView!
+    private var rightBall = NSView(frame: NSRect.zero)
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        leftBall.wantsLayer = true
         backgroundView.layer?.backgroundColor = NSColor.white.cgColor
     }
     
     
-    private let ballSize: CGFloat = 10
+    private let ballSize: CGFloat = 55
     override func viewWillAppear() {
         super.viewWillAppear()
         
-        leftBall.wantsLayer = true
-        leftBall.layer?.backgroundColor = CGColor.black
+        rightBall.wantsLayer = true
+        
+        rightBall.layer?.backgroundColor = CGColor.black
         
         
-        let constraint = leftBall.topAnchor.constraint(equalTo: view.topAnchor)
-        constraint.constant = 30
-        constraint.isActive = true
         
-        let leftConstraint = leftBall.leftAnchor.constraint(equalTo: view.leftAnchor)
-        leftConstraint.constant = 30
-        leftConstraint.isActive = true
+        view.addSubview(rightBall)
+        rightBall.translatesAutoresizingMaskIntoConstraints = false
         
-        leftBall.widthAnchor.constraint(equalToConstant: ballSize).isActive = true
-        leftBall.heightAnchor.constraint(equalToConstant: ballSize).isActive = true
-        
-        [leftBall].forEach { (aView) in
-            if let aView = aView {
+        [rightBall].forEach { (aView) in
+            // if let aView = aView {
+                let constraint = aView.topAnchor.constraint(equalTo: view.topAnchor)
+                constraint.constant = 30
+                constraint.isActive = true
+                
+                let leftConstraint = aView.leftAnchor.constraint(equalTo: view.leftAnchor)
+                leftConstraint.constant = 30
+                leftConstraint.isActive = true
+                
+                aView.widthAnchor.constraint(equalToConstant: ballSize).isActive = true
+                aView.heightAnchor.constraint(equalToConstant: ballSize).isActive = true
+                
                 aView.layer?.cornerRadius = ballSize / 2
                 aView.layer?.backgroundColor = CGColor.black
-            }
+            // }
         }
     }
-    
-    
 }
 

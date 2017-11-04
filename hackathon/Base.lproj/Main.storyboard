@@ -713,26 +713,16 @@
                             <customView translatesAutoresizingMaskIntoConstraints="NO" id="Hew-Cp-1FE">
                                 <rect key="frame" x="0.0" y="0.0" width="480" height="234"/>
                             </customView>
-                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="Fry-vQ-T2G">
-                                <rect key="frame" x="20" y="114" width="50" height="100"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" priority="250" constant="50" id="2jC-i0-leY"/>
-                                    <constraint firstAttribute="height" priority="250" constant="100" id="8vI-hF-Xki"/>
-                                </constraints>
-                            </customView>
                         </subviews>
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="Hew-Cp-1FE" secondAttribute="bottom" id="1Gr-qk-soF"/>
                             <constraint firstAttribute="trailing" secondItem="Hew-Cp-1FE" secondAttribute="trailing" id="1gL-Mf-HPG"/>
                             <constraint firstItem="Hew-Cp-1FE" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" id="ARv-Tn-Inq"/>
-                            <constraint firstItem="Fry-vQ-T2G" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" priority="750" constant="20" id="Usf-DC-9ib"/>
                             <constraint firstItem="Hew-Cp-1FE" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" id="peU-tD-94O"/>
-                            <constraint firstItem="Fry-vQ-T2G" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" priority="750" constant="20" id="rbM-ln-iPc"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="backgroundView" destination="Hew-Cp-1FE" id="vXY-es-WNo"/>
-                        <outlet property="leftBall" destination="Fry-vQ-T2G" id="I2V-zm-tLL"/>
                     </connections>
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
