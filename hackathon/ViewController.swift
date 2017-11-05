@@ -8,6 +8,9 @@
 
 import Cocoa
 
+let constantDeltaT: CGFloat = 1
+let refreshFrequency: TimeInterval = 0.5
+
 struct ViewControllerState {
     weak var vc: ViewController?
     var isPaused: Bool = false {
@@ -75,7 +78,7 @@ class ViewController: NSViewController {
     func startTimer() {
         // just in case you had existing `Timer`, `invalidate` it before we lose our reference to it
         timer?.invalidate()
-        timer = Timer.scheduledTimer(withTimeInterval: 0.01, repeats: true) { [weak self] _ in
+        timer = Timer.scheduledTimer(withTimeInterval: refreshFrequency, repeats: true) { [weak self] _ in
             guard let zelf = self else { return }
             
             zelf.electronView?.setPos(pos: AppData.current.electron)
@@ -98,7 +101,7 @@ class ViewController: NSViewController {
         let k: CGFloat = 1
         
         // constant delta t
-        let t: CGFloat = 1/30
+        let t: CGFloat = constantDeltaT
         
         var totalAx: CGFloat = 0
         var totalAy: CGFloat = 0
