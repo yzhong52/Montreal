@@ -18,7 +18,7 @@ void loop() {
 
     // myservo.write(reader);
 
-    if (reader == '2' || reader == '1') {
+    if (reader == '4' || reader == 65) {
       digitalWrite(11, HIGH);
       delay(200);
       digitalWrite(11, LOW);

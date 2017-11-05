@@ -16,17 +16,14 @@ print(connected)
 @app.route("/")
 def hello():
 	global ser
-	x = request.args.get('x', '') # get x and y angles from input in server
-	y = request.args.get('y', '')
-	print(x)
+	 # get x and y angles from input in server
+	x = int(request.args.get('x', ''))
+	y = int(request.args.get('y', ''))
 	
-	input_b=bytes(x,encoding='utf-8')
-	ser.write(input_b)
-	#while ser.read() == '1':
-	#	dataRead = ser.read()
-	#	print(dataRead)
-	#ser.close()
-	print(y)
+	print("The angles: " + x  + ", " + y)
+	
+	ser.write(bytes(chr(x), encoding='utf-8'))
+
 	return "Hello World Luis!"+x+y
 
 
