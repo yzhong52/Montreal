@@ -23,7 +23,8 @@ def hello():
 	message = "The angles: " + str(x)  + ", " + str(y)
 	
 	ser.write(bytes(chr(x), encoding='utf-8'))
-	
+	ser.write(bytes(chr(y), encoding='utf-8'))
+
 	print(message)
 	return message
 
