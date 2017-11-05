@@ -1,24 +1,39 @@
 #include <Servo.h>
 
-Servo myservo;  // create servo object to control a servo
+// create servo object to control a servo
 // twelve servo objects can be created on most boards
+Servo myservo; 
+Servo myservo2;
 
 void setup() {
   Serial.begin(9600);
-  myservo.attach(12);  // attaches the servo on pin 9 to the servo object
-  Serial.write('1');
+
   pinMode(11, OUTPUT);
+  
+  // attaches the servo on pin to the servo objects
+  myservo.attach(12);  
+  myservo2.attach(13);
+  
+  Serial.write('1');
+  
 }
 
 unsigned char reader; 
+bool toggle = false;
 
 void loop() {
  if(Serial.available() > 0){ //Checks if chip is sending data
+    toggle = !toggle;
+    
     reader = Serial.read(); // Reads the data
 
-    // myservo.write(reader);
+    if (toggle) {
+      myservo.write((int)reader);
+    } else {
+      myservo2.write((int)reader);
+    }
 
-    if (reader == '4' || reader == 65) {
+    if ( reader >= 'A') {
       digitalWrite(11, HIGH);
       delay(200);
       digitalWrite(11, LOW);

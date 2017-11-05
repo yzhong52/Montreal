@@ -20,11 +20,12 @@ def hello():
 	x = int(request.args.get('x', ''))
 	y = int(request.args.get('y', ''))
 	
-	print("The angles: " + x  + ", " + y)
+	message = "The angles: " + str(x)  + ", " + str(y)
 	
 	ser.write(bytes(chr(x), encoding='utf-8'))
-
-	return "Hello World Luis!"+x+y
+	
+	print(message)
+	return message
 
 
 
