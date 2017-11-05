@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4B1DB6CD1FAF476600AF3549 /* AngleCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B1DB6CC1FAF476600AF3549 /* AngleCalculator.swift */; };
 		4B6ADB7A1FAE287900929E13 /* BallView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B6ADB791FAE287900929E13 /* BallView.swift */; };
 		4B6CBEA71FAE049B0067522F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B6CBEA61FAE049B0067522F /* AppDelegate.swift */; };
 		4B6CBEA91FAE049B0067522F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B6CBEA81FAE049B0067522F /* ViewController.swift */; };
@@ -18,6 +19,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4B1DB6CC1FAF476600AF3549 /* AngleCalculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AngleCalculator.swift; sourceTree = "<group>"; };
 		4B6ADB791FAE287900929E13 /* BallView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BallView.swift; sourceTree = "<group>"; };
 		4B6CBEA31FAE049B0067522F /* hackathon.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = hackathon.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4B6CBEA61FAE049B0067522F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -65,6 +67,7 @@
 				4B6CBEA81FAE049B0067522F /* ViewController.swift */,
 				4BF071201FAE6F8C001EF6D4 /* AppData.swift */,
 				4B6ADB791FAE287900929E13 /* BallView.swift */,
+				4B1DB6CC1FAF476600AF3549 /* AngleCalculator.swift */,
 				4BF0711C1FAE52AD001EF6D4 /* Electon.swift */,
 				4BF0711E1FAE52D0001EF6D4 /* Ion.swift */,
 				4B6CBEAA1FAE049B0067522F /* Assets.xcassets */,
@@ -152,6 +155,7 @@
 				4BF0711D1FAE52AD001EF6D4 /* Electon.swift in Sources */,
 				4B6CBEA71FAE049B0067522F /* AppDelegate.swift in Sources */,
 				4BF071211FAE6F8C001EF6D4 /* AppData.swift in Sources */,
+				4B1DB6CD1FAF476600AF3549 /* AngleCalculator.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
