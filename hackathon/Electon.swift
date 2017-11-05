@@ -8,6 +8,11 @@
 
 import Foundation
 
+extension CGFloat {
+    var string: String {
+        return "\(self)"
+    }
+}
 struct Electon: PositionType, Codable {
     var vx: CGFloat
     var vy: CGFloat

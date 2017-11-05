@@ -49,6 +49,13 @@ class ViewController: NSViewController {
         }
         ViewControllerState.current.vc = self
         ViewControllerState.current.isPaused = true
+        
+        textFieldVx.stringValue = AppData.current.electron.vx.string
+        textFieldVy.stringValue = AppData.current.electron.vy.string
+        textFieldX.stringValue = AppData.current.electron.x.string
+        textFieldY.stringValue = AppData.current.electron.y.string
+        textFieldQ.stringValue = AppData.current.electron.q.string
+        textFieldM.stringValue = AppData.current.electron.m.string
     }
     
     override func viewWillAppear() {
@@ -72,10 +79,12 @@ class ViewController: NSViewController {
             
             zelf.electronView?.setPos(pos: AppData.current.electron)
             zelf.startCalculation()
-            zelf.tailsView.append(BallView(view: zelf.view,
-                                           color: CGColor(red: 1, green: 0, blue: 0, alpha: 0.1),
-                                           size: 3))
-            zelf.tailsView.last?.setPos(pos: AppData.current.electron)
+            
+            let newTail = BallView(view: zelf.view, size: 1)
+            newTail.setPos(pos: AppData.current.electron)
+            newTail.layer?.backgroundColor = CGColor(red: 0, green: 0, blue: 0, alpha: 0.2)
+            zelf.tailsView.append(newTail)
+            
             if zelf.tailsView.count > 50 {
                 zelf.tailsView.first?.removeFromSuperview()
                 zelf.tailsView.remove(at: 0)
@@ -125,6 +134,7 @@ class ViewController: NSViewController {
         AppData.current.electron.y = y1
         AppData.current.electron.vx = electron.vx + totalAx * t
         AppData.current.electron.vy = electron.vy + totalAy * t
+        
     }
     
     func stopTimer() {
@@ -137,7 +147,9 @@ class ViewController: NSViewController {
     }
     
     @IBAction func resetButtonCTapped(_ sender: NSButtonCell) {
+        
         AppData.current = AppData.settings
+        electronView?.setPos(pos: AppData.current.electron)
         tailsView.forEach { $0.removeFromSuperview() }
         tailsView = []
     }
@@ -147,11 +159,62 @@ class ViewController: NSViewController {
         switch sender.state {
         case .ended:
             let pos = sender.location(in: view)
-            print(pos.x)
-            print(pos.y)
+            textFieldX.stringValue = "\(view.frame.height - pos.y)"
+            textFieldY.stringValue = "\(pos.x)"
         default:
             print("do nothing for state \(sender.state.rawValue)")
         }
+    }
+    
+    @IBAction func setElectronButtonTapped(_ sender: NSButton)
+    {
+        let currentElectron = AppData.settings.electron
+
+        let newElecton = Electon(
+            vx: textFieldVx.extractCGFloat() ?? currentElectron.vx,
+            vy: textFieldVy.extractCGFloat() ?? currentElectron.vy,
+            x: textFieldX.extractCGFloat() ?? currentElectron.x,
+            y: textFieldY.extractCGFloat() ?? currentElectron.y,
+            q: textFieldQ.extractCGFloat() ?? currentElectron.q,
+            m: textFieldM.extractCGFloat() ?? currentElectron.m
+        )
+        
+        AppData.settings.electron = newElecton
+        AppData.current.electron = newElecton
+        
+        electronView?.setPos(pos: AppData.current.electron)
+    }
+    
+    @IBAction func addIonButtonTapped(_ sender: NSButton)
+    {
+        let currentElectron = AppData.settings.electron
+        let newIon = Ion(x: textFieldX.extractCGFloat() ?? currentElectron.x,
+                         y: textFieldY.extractCGFloat() ?? currentElectron.y,
+                         q: textFieldQ.extractCGFloat() ?? currentElectron.q)
+        AppData.settings.ions.append(newIon)
+        AppData.current.ions.append(newIon)
+        
+        ionViews.forEach { (ionView) in
+            ionView.removeFromSuperview()
+        }
+        ionViews = AppData.current.ions.map { (ion) in
+            let ball = BallView(view: view)
+            ball.setPos(pos: ion)
+            return ball
+        }
+    }
+    
+    @IBOutlet var textFieldVx: NSTextField!
+    @IBOutlet var textFieldVy: NSTextField!
+    @IBOutlet var textFieldX: NSTextField!
+    @IBOutlet var textFieldY: NSTextField!
+    @IBOutlet var textFieldQ: NSTextField!
+    @IBOutlet var textFieldM: NSTextField!
+}
+
+extension NSTextField {
+    func extractCGFloat() -> CGFloat? {
+        return Float(stringValue).flatMap{ CGFloat($0) }
     }
 }
 

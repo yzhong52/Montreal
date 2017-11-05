@@ -12,24 +12,32 @@ private let V0: CGFloat = 10
 
 private let Initial_alpha: CGFloat = CGFloat(Float.pi / 4)
 
-class AppData: Codable {
+struct AppData: Codable {
     var ions = [
         Ion(x: 200, y: 300, q: -1),
         Ion(x: 100, y: 250, q: -1)
     ]
-
+    
     var electron = Electon(vx: V0 * cos(Initial_alpha),
                            vy: V0 * sin(Initial_alpha),
-                           x: 25,
-                           y: 25,
+                           x: 300,
+                           y: 300,
                            q: 1,
                            m: 1)
     
-    static var settings = AppData() {
-        didSet {
-            current = settings
+    static var settings = AppData()
+    static var current = settings
+}
+
+
+extension Encodable {
+    func jsonString() -> String {
+        let encoder = JSONEncoder()
+        encoder.outputFormatting = .prettyPrinted
+        if let data = try? encoder.encode(self) {
+            return String(data: data, encoding: String.Encoding.utf8) ?? ""
+        } else {
+            return ""
         }
     }
-    
-    static var current = settings
 }

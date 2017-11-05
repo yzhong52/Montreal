@@ -11,6 +11,7 @@ import Cocoa
 protocol PositionType {
     var x: CGFloat { get }
     var y: CGFloat { get }
+    var q: CGFloat { get }
 }
 
 class BallView: NSView {
@@ -33,6 +34,11 @@ class BallView: NSView {
     func setPos(pos: PositionType) {
         x = pos.x
         y = pos.y
+        if pos.q > 0 {
+            self.layer?.backgroundColor = CGColor(red: 1, green: 0, blue: 0, alpha: 1)
+        } else {
+            self.layer?.backgroundColor = CGColor(red: 0, green: 0, blue: 1, alpha: 1)
+        }
     }
     
     init(view: NSView, color: CGColor? = CGColor.black, size: CGFloat = 10) {
