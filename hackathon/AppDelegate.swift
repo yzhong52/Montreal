@@ -50,6 +50,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                 let decoder = JSONDecoder()
                 if let appData = try? decoder.decode(AppData.self, from: data) {
                     AppData.settings = appData
+                    ViewControllerState.current.vc?.updateIonViews()
                 }
             }
         } else {

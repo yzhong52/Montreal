@@ -159,11 +159,11 @@ class ViewController: NSViewController {
     }
     
     @IBAction func resetButtonCTapped(_ sender: NSButtonCell) {
-        
         AppData.current = AppData.settings
         electronView?.setPos(pos: AppData.current.electron)
         tailsView.forEach { $0.removeFromSuperview() }
         tailsView = []
+        ViewControllerState.current.vc?.updateIonViews()
     }
     
     @IBOutlet var viewTappedGestureRecognizer: NSClickGestureRecognizer!
@@ -222,7 +222,7 @@ class ViewController: NSViewController {
         updateIonViews()
     }
     
-    private func updateIonViews() {
+    func updateIonViews() {
         ionViews.forEach { (ionView) in
             ionView.removeFromSuperview()
         }
