@@ -143,10 +143,13 @@ class ViewController: NSViewController {
         // let str = "http://10.10.204.152:5000/?x=\(Int(x1)%100)&y=\(Int(y1)%100)"
         
         
-        let (angleX, angleY) = AngleCalculator.calculate(x: x1,
+        var (angleX, angleY) = AngleCalculator.calculate(x: x1,
                                                          y: y1,
                                                          x_w: self.view.frame.width,
                                                          x_l: self.view.frame.height)
+        angleX = max(70, min(angleX, 125))
+        angleY = max(70, min(angleY, 125))
+        
         print("\(angleX), \(angleY)")
         let str = "http://10.10.204.152:5000/?x=\(angleX)&y=\(angleY)"
         let url = URL(string:str)
