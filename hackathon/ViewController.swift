@@ -27,6 +27,7 @@ struct ViewControllerState {
 
 class ViewController: NSViewController {
     
+    @IBOutlet var canvas: NSView!
     @IBOutlet var backgroundView: NSView!
     @IBOutlet var startPauseButton: NSButtonCell!
     
@@ -43,7 +44,7 @@ class ViewController: NSViewController {
         backgroundView.layer?.backgroundColor = NSColor.white.cgColor
         
         ionViews = AppData.current.ions.map { (ion) in
-            let ball = BallView(view: view)
+            let ball = BallView(view: canvas)
             ball.setPos(pos: ion)
             return ball
         }
@@ -61,7 +62,7 @@ class ViewController: NSViewController {
     override func viewWillAppear() {
         super.viewWillAppear()
         
-        electronView = BallView(view: view,
+        electronView = BallView(view: canvas,
                                 color: CGColor(red: 0, green: 0, blue: 1, alpha: 1),
                                 size: 5)
         electronView?.setPos(pos: AppData.current.electron)
@@ -80,7 +81,7 @@ class ViewController: NSViewController {
             zelf.electronView?.setPos(pos: AppData.current.electron)
             zelf.startCalculation()
             
-            let newTail = BallView(view: zelf.view, size: 1)
+            let newTail = BallView(view: zelf.canvas, size: 1)
             newTail.setPos(pos: AppData.current.electron)
             newTail.layer?.backgroundColor = CGColor(red: 0, green: 0, blue: 0, alpha: 0.2)
             zelf.tailsView.append(newTail)
@@ -159,8 +160,21 @@ class ViewController: NSViewController {
         switch sender.state {
         case .ended:
             let pos = sender.location(in: view)
-            textFieldX.stringValue = "\(view.frame.height - pos.y)"
-            textFieldY.stringValue = "\(pos.x)"
+            let x = view.frame.height - pos.y
+            let y = pos.x
+            textFieldX.stringValue = "\(x)"
+            rightTextFieldX.stringValue = "\(x)"
+            textFieldY.stringValue = "\(y)"
+            rightTextFieldY.stringValue = "\(y)"
+            print("\(x) \(y)")
+            let iconIndex = AppData.settings.ions.index(where: { (ion) -> Bool in
+                return abs(ion.x - x) < 30 && abs(ion.y - y) < 30
+            })
+            if let iconIndex = iconIndex, iconIndex != NSNotFound {
+                AppData.settings.ions.remove(at: iconIndex)
+                AppData.current.ions.remove(at: iconIndex)
+                updateIonViews()
+            }
         default:
             print("do nothing for state \(sender.state.rawValue)")
         }
@@ -169,7 +183,7 @@ class ViewController: NSViewController {
     @IBAction func setElectronButtonTapped(_ sender: NSButton)
     {
         let currentElectron = AppData.settings.electron
-
+        
         let newElecton = Electon(
             vx: textFieldVx.extractCGFloat() ?? currentElectron.vx,
             vy: textFieldVy.extractCGFloat() ?? currentElectron.vy,
@@ -188,17 +202,21 @@ class ViewController: NSViewController {
     @IBAction func addIonButtonTapped(_ sender: NSButton)
     {
         let currentElectron = AppData.settings.electron
-        let newIon = Ion(x: textFieldX.extractCGFloat() ?? currentElectron.x,
-                         y: textFieldY.extractCGFloat() ?? currentElectron.y,
-                         q: textFieldQ.extractCGFloat() ?? currentElectron.q)
+        let newIon = Ion(x: rightTextFieldX.extractCGFloat() ?? currentElectron.x,
+                         y: rightTextFieldY.extractCGFloat() ?? currentElectron.y,
+                         q: rightTextFieldQ.extractCGFloat() ?? currentElectron.q)
         AppData.settings.ions.append(newIon)
         AppData.current.ions.append(newIon)
         
+        updateIonViews()
+    }
+    
+    private func updateIonViews() {
         ionViews.forEach { (ionView) in
             ionView.removeFromSuperview()
         }
         ionViews = AppData.current.ions.map { (ion) in
-            let ball = BallView(view: view)
+            let ball = BallView(view: canvas)
             ball.setPos(pos: ion)
             return ball
         }
@@ -210,6 +228,11 @@ class ViewController: NSViewController {
     @IBOutlet var textFieldY: NSTextField!
     @IBOutlet var textFieldQ: NSTextField!
     @IBOutlet var textFieldM: NSTextField!
+    
+    @IBOutlet var rightTextFieldX: NSTextField!
+    @IBOutlet var rightTextFieldY: NSTextField!
+    @IBOutlet var rightTextFieldQ: NSTextField!
+    
 }
 
 extension NSTextField {
