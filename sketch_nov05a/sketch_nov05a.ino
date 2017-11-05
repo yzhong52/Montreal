@@ -6,7 +6,7 @@ Servo myservo;
 Servo myservo2;
 
 void setup() {
-  Serial.begin(9600);
+  Serial.begin(500000);
 
   pinMode(11, OUTPUT);
   
@@ -33,10 +33,10 @@ void loop() {
       myservo2.write((int)reader);
     }
 
-    if ( reader >= 'A') {
-      digitalWrite(11, HIGH);
-      delay(200);
-      digitalWrite(11, LOW);
-    } 
+    //if ( reader >= 'A') {
+     // digitalWrite(11, HIGH);
+     // delay(200);
+     // digitalWrite(11, LOW);
+    //} 
   }
 }

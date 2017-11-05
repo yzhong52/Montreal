@@ -3,7 +3,7 @@ from flask import request
 import serial
 app = Flask(__name__)
 
-ser = serial.Serial("/dev/cu.usbmodem1421", 9600)
+ser = serial.Serial("/dev/cu.usbmodem1421", 500000)
 
 connected = False
 while not connected:
@@ -22,6 +22,7 @@ def hello():
 	
 	message = "The angles: " + str(x)  + ", " + str(y)
 	
+	x
 	ser.write(bytes(chr(x), encoding='utf-8'))
 	ser.write(bytes(chr(y), encoding='utf-8'))
 
