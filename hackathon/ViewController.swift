@@ -136,6 +136,15 @@ class ViewController: NSViewController {
         AppData.current.electron.vx = electron.vx + totalAx * t
         AppData.current.electron.vy = electron.vy + totalAy * t
         
+        let str = "http://127.0.0.1:5000/?x=\(x1)&y=\(y1)"
+        let url = URL(string:str)
+        let task = URLSession.shared.dataTask(with: url!) {(data, response, error) in
+            if let data = data,
+                let reponseStr = String.init(data: data, encoding: String.Encoding.utf8) {
+                print(reponseStr)
+            }
+        }
+        task.resume()
     }
     
     func stopTimer() {
