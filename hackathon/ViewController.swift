@@ -136,7 +136,9 @@ class ViewController: NSViewController {
         AppData.current.electron.vx = electron.vx + totalAx * t
         AppData.current.electron.vy = electron.vy + totalAy * t
         
-        let str = "http://127.0.0.1:5000/?x=\(x1)&y=\(y1)"
+        // let str = "http://127.0.0.1:5000/?x=\(x1)&y=\(y1)"
+        // let str = "http://10.10.204.152:5000/?x=\(Int(x1)%100)&y=\(Int(y1)%100)"
+        let str = "http://10.10.204.152:5000/?x=2&y=2"
         let url = URL(string:str)
         let task = URLSession.shared.dataTask(with: url!) {(data, response, error) in
             if let data = data,
